@@ -71,7 +71,7 @@
 </head>
 <body>
 
-	<h1> Campsites in Iceland</h1>
+	<h1> Climate Beleifs in North Carolina </h1>
 
 <div id="map"></div>
 <script>
@@ -90,7 +90,7 @@
 
   // GeoJSON Data
   // Null vessel
-  var Campsites = null;
+  var Counties = null;
 
 
   var colors = chroma.scale('RDBu').mode('lch').colors(2);
@@ -111,29 +111,41 @@
   // You can see we're also adding attribution information for our data sources
   Counties = L.geoJson.ajax("assets/NC_Counties.geojson",{
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.Counties);
+        layer.bindPopup(feature.properties.CO_NAME);
     },
 
 
-  // this function manually defines your choropleth classification system
-  //so you'll need to figure out which break points you'd like to use
-  //based on the data distribution
-  //this equal interval classification with 5 classes, takes the range of the
-  //data (133) and divides it by 5, to show there are intervals of 27 per class
-  //so...
-  function setColor(density) {
+  // Defined choropleth 
+ 
+  function setColor(Percentage) {
      var id = 0;
-     if (density > 15) { id = 4; } //133-27=106:highest fifth class
-     else if (density > 10 && density <=15) {id = 3;}
-     else if (density > 5 && density <= 10){ id = 2; }
-     else if (density > 0 && density <= 5){id=1;}
+     if (Percentage > 0) { id = 1; } /
+     else if (Percentage > 5 && Percentage <=10) {id = 2;}
+     else if (Percentage > 10 && Percentage <= 15){ id = 3;}
+     else if (Percentage > 15 && Percentage <= 20){id=4;}
+     else if (Percentage > 20 && Percentage <= 25){id=5;}
+     else if (Percentage > 25 && Percentage <= 30){id=6;}
+     else if (Percentage > 30 && Percentage <= 35){id=7;}
+     else if (Percentage > 35 && Percentage <= 40){id=8;}
+     else if (Percentage > 40 && Percentage <= 45){id=9;}
+     else if (Percentage > 45 && Percentage <= 50){id=10;}
+     else if (Percentage > 50 && Percentage <= 55){id=11;}
+     else if (Percentage > 55 && Percentage <= 60){id=12;}
+     else if (Percentage > 60 && Percentage <= 65){id=13;}
+     else if (Percentage > 65 && Percentage <= 70){id=14;}
+     else if (Percentage > 70 && Percentage <= 75){id=15;}
+     else if (Percentage > 75 && Percentage <= 80){id=16;}
+     else if (Percentage > 80 && Percentage <= 85){id=17;}
+     else if (Percentage > 85 && Percentage <= 90){id=18;}
+     else if (Percentage > 90 && Percentage <= 95){id=19;}
+     else if (Percentage > 95 && Percentage <= 100){id=20;}
      else {id=0;}
     return colors[id];
  }
-  // 7. Set style function that sets fill color property equal to total Airbnbs
+  // 7. Set style function that sets fill of percentage
 function style(feature) {
     return {
-        fillColor: setColor(feature.properties.density),
+        fillColor: setColor(feature.properties.Percentage),
         fillOpacity: 0.4,
         weight: 2,
         opacity: 10,
@@ -144,7 +156,7 @@ function style(feature) {
 
 
   // 8. Add county polygons
-  L.geoJson.ajax("assets/regions2.geojson", {
+  L.geoJson.ajax("assets/NC_Counties.geojson", {
       style: style
  }).addTo(mymap);
 
@@ -154,7 +166,7 @@ var legend = L.control({position: 'bottomright'});
       // Create Div Element and Populate it with HTML
       var div = L.DomUtil.create('div', 'legend');
       //this line creates a title for the choropleth part of the legend
-      div.innerHTML += '<b> Campsites per Region </b><br />';
+      div.innerHTML += '<b> Percentage of Climare Belief </b><br />';
       //notice the class breaks entered at the end of the next 5 lines
       //the colors specify the shade of purple that we used to do the polygon shading
       div.innerHTML += '<i style="background: ' + colors[3] + '; opacity: 0.5"></i><p>15-20</p>';
