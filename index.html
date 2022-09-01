@@ -12,6 +12,20 @@
     <style>
  	html, body, #map { width: 100%; height: 100%; margin: 0; background: #fff; }
 
+  h1 {
+    position: absolute;
+    margin-top: 0;
+    top: 10px;
+    left: 425px;
+    font-size: 2em;
+    font-family: "Source Sans, monospace";
+    letter-spacing: .04em;
+    padding: 10px 15px;
+    background: rgba(256, 256, 256);
+    border: 1px solid grey;
+    border-radius: 3px;
+    z-index: 800;
+  }
   .legend {
       line-height: 40px;
       font-size: 16px;
@@ -45,22 +59,6 @@
       line-height: 20px;
       margin: 0;
   }
-
-  h1 {
-    position: absolute;
-    margin-top: 0;
-    top: 10px;
-    left: 500px;
-    font-size: 2em;
-    font-family: "Source Sans, monospace";
-    letter-spacing: .04em;
-    padding: 10px 15px;
-    background: rgba(256, 256, 256);
-    border: 1px solid grey;
-    border-radius: 3px;
-    z-index: 800;
-  }
-
     </style>
     	<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 	<script src="https://unpkg.com/leaflet@1.7.0/dist/leaflet.js"></script>
@@ -76,10 +74,10 @@
 <div id="map"></div>
 <script>
   var mymap = L.map('map', {
-      center: [35.31023, 79.22087],
+      center: [35.900894, -80.709402],
       zoom: 6.5,
       maxZoom: 18,
-      minZoom: 3,
+      minZoom: 6,
       detectRetina: true
 
     });
@@ -87,8 +85,30 @@
 
   // Base Map
   L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
+  
+  //Empty map frame 
+
+var Counties = null;
+
+County_outline = L.geoJson.ajax("assets/NC_Counties.geojson",{
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.CO_NAME);
+    },
+
+  }).addTo(mymap);
 
 
+// 7. Set style function that sets fill of percentage
+function style(feature) {
+  return {
+      fillColor: setColor(feature.properties.Percentage),
+      fillOpacity: 0.4,
+      weight: 2,
+      opacity: 10,
+      color: '#7d9981',
+      dashArray: '1'
+   };
+}
 </script>
 </body>
 </html>
