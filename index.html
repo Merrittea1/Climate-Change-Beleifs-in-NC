@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,9 +88,9 @@
 
 var Counties = null;
 
-County_outline = L.geoJson.ajax("assets/NC_Counties.geojson",{
+County_outline = L.geoJson.ajax("assets/final.geojson",{
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.CO_NAME);
+        layer.bindPopup(feature.properties.worried);
     },
 
   }).addTo(mymap);
