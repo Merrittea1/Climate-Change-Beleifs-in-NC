@@ -1,6 +1,7 @@
-#North Carolina Climate Opinion Maps
 
-##Purpose
+# North Carolina Climate Opinion Maps
+
+## Purpose
 this map has been created for the purposes of Eliza Merritt's Masters thesis for Appalachian State University. Each map represents a different set of climate opinions. Each question and all data are from the [Yale Climate Opinion Maps](https://climatecommunication.yale.edu/visualizations-data/ycom-us/). These maps will be part of a second order belief, and map usability study that focuses on North Carolina students second order beleifs on climate policy. 
 
 ## Features and Use
